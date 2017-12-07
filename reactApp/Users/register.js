@@ -67,7 +67,7 @@ class register extends Component{
                     </FormControl>
                     <Button raised dense onClick={this.registerFormHandler}>
                         <Save  />
-                        Save
+                        Register
                     </Button>
                 </div>
                 {this.state.isRegistered ?

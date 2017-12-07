@@ -28,6 +28,7 @@ passport.deserializeUser((id, done) => {
 
 //Registering user
 router.post('/register', function(req, res, next) {
+	return res.json({});
     var newUser = new User({username:req.body.username})
     User.register(newUser,req.body.password,function (err, user) {
         if(err){
@@ -38,6 +39,23 @@ router.post('/register', function(req, res, next) {
         })
     })
 });
+
+
+//Registering user
+router.get('/z', function(req, res, next) {
+    return res.json({1:1});
+    var newUser = new User({username:req.body.username})
+    User.register(newUser,req.body.password,function (err, user) {
+        if(err){
+            return res.render(err)
+        }
+        passport.authenticate("local")(req,res,function () {
+            res.json({isRegistered:true})
+        })
+    })
+});
+
+
 //Logging User
 router.post('/login',passport.authenticate('local',
     {

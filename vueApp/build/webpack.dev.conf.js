@@ -20,21 +20,48 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
-    clientLogLevel: 'warning',
+    clientLogLevel: 'info',
     historyApiFallback: true,
     hot: true,
     compress: true,
     host: HOST || config.dev.host,
-    port: PORT || config.dev.port,
+    // port: 8081,
+    // proxy: {
+    //   '/api': {
+    //     target: {
+    //       // changeOrigin: true,
+    //       host: "0.0.0.0",
+    //       protocol: 'http:',
+    //       port: 8080
+    //     },
+    //     pathRewrite: {
+    //       '^/api': ''
+    //     }
+    //   }
+    // },
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
       ? { warnings: false, errors: true }
       : false,
     publicPath: config.dev.assetsPublicPath,
-    proxy: config.dev.proxyTable,
+    //proxy: config.dev.proxyTable,
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
+    },
+    inline: true,
+    port: 8081,
+    proxy: {
+      '/api': {
+        target: {
+          host: "0.0.0.0",
+          protocol: 'http:',
+          port: 8080
+        },
+        pathRewrite: {
+          '^/api': ''
+        }
+      }
     }
   },
   plugins: [
